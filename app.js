@@ -6,6 +6,7 @@ board.on("ready", function() {
     var led = new five.Pin(13);
 
     var express = require('express');
+    var delay=require('delay');
     var app = express();
     app.all('*', function(req, res, next){
         res.header("Access-Control-Allow-Origin", "*");
@@ -39,6 +40,11 @@ board.on("ready", function() {
     app.get('/led/on', function(req, res) {
         led.high();
         res.send("LED ON")
+    });
+    app.get('led/blink', function (red, res) {
+        led.blink(1000);
+        res.send("LED BLINK")
+
     });
 
     app.listen(SERVER_PORT, function() {
