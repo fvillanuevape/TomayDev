@@ -1,0 +1,69 @@
+<html>
+<head>
+    <title>::Arduino Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <style>
+        .btn{
+            width: 200px;
+            padding: 15px 32px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container theme-showcase" role="main">
+    <div class="jumbotron">
+        <h1>Firmata y Arduino</h1>
+            <p>Con este ejemplo vamos a controlar un LED RGB a través de una web. Cuando pulsemos uno de los botones el LED cambiara al color que indique el botón. También podemos controlar enceder o apagar el LED o que parpadee</p>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+            <p> <button id="b_azul" type="button" class="btn btn-lg btn-primary">Azul</button>
+            <p> <button id="b_verde" type="button" class="btn btn-lg btn-success">Verde</button>
+            <p> <button id="b_rojo" type="button" class="btn btn-lg btn-danger">Rojo</button>
+        </div>
+        <div class="col-md-3">
+            <p> <button id="b_stop" type="button" class="btn btn-lg btn-default">Blink</button>
+            <p> <button id="b_off" type="button" class="btn btn-lg btn-default">Led OFF</button>
+            <p> <button id="b_on" type="button" class="btn btn-lg btn-default">Led ON</button>
+        </div>
+    </div>
+    <div class="row" id="data">
+
+    </div>
+    <div class="row">
+        <div class="well">
+            <p> Example by <a href="">Arduino</a>
+                <br> <a href="">Read Me</a>
+        </div>
+    </div>
+</div>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    var URL_BASE=window.location.host;
+    var END_ON='/led/on'
+    var END_OFF='/led/off'
+
+    $(document).ready(function(){
+        $('#b_on').click(function(){
+            $.ajax({
+                url: 'http://localhost:8081/led/on',
+                success: function(result){
+                    $("#data").html(result);
+                }});
+        });
+    });
+    $(document).ready(function(){
+        $('#b_off').click(function(){
+            $.ajax({url: 'http://localhost:8081/led/off',
+                success: function(result){
+                    $("#data").html(result);
+                }});
+        });
+    });
+
+</script>
+
+</body>
+</html>
